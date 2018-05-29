@@ -4,27 +4,27 @@
 
 ## 執行畫面
 
-1. 請先加入好友
+請先加入好友
 
 我的 QRCODE
 
 ![alt tag](https://i.imgur.com/qCbbF2R.png)
 
 
-2. 輸入任何文字即可開始使用
+輸入任何文字即可開始使用
 
-![alt tag](https://i.imgur.com/9nzQ4et.png?2)
+![alt tag](https://i.imgur.com/9nzQ4et.png?3)
 
 
-3. 首先請設定你的protal帳號密碼
+首先請設定你的protal帳號密碼
 
 要點選才能設定
 
-![alt tag](https://i.imgur.com/RNT3xBw.png?1)
+![alt tag](https://i.imgur.com/RNT3xBw.png?2)
 
-4. 設定完後會出現可以用的服務
+設定完後會出現可以用的服務
 
-![alt tag](https://i.imgur.com/hdHyzxf.png?2)
+![alt tag](https://i.imgur.com/hdHyzxf.png?4)
 
 ## 功能
 

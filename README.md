@@ -15,20 +15,18 @@
 
 輸入任何文字即可開始使用
 
-![alt tag](https://i.imgur.com/9nzQ4et.png)
+![alt tag](https://i.imgur.com/9nzQ4et.png?2)
 
 
 首先請設定你的protal帳號密碼
 
-![alt tag](https://i.imgur.com/9nzQ4et.png)
+要點選才能設定
 
-點選才能設定
-
-![alt tag](https://i.imgur.com/RNT3xBw.png)
+![alt tag](https://i.imgur.com/RNT3xBw.png?1)
 
 設定完後會出現可以用的服務
 
-![alt tag](https://i.imgur.com/hdHyzxf.png)
+![alt tag](https://i.imgur.com/hdHyzxf.png?2)
 
 
 #### 立即簽到簽退

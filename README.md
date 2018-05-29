@@ -1,4 +1,4 @@
-# 這是給中央大學有在使用portal人事系統簽到退的 Line Bot
+# 這是給中央大學有在使用portal人事系統簽到退的人提供的 Line Bot
 
 請注意! 這必須提供你的portal帳號及密碼才可以使用
 
@@ -51,4 +51,12 @@
 ### 4. 輸入 "我不玩了" 就可以清除你所有的資料。
 
 
+## 參考網站
 
+### 1. https://github.com/twtrubiks/line-bot-tutorial
+
+### 2. https://github.com/line/line-bot-sdk-python
+
+### 3. https://ithelp.ithome.com.tw/articles/10196704
+
+### 4. https://devcenter.heroku.com/articles/scheduler

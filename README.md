@@ -13,18 +13,21 @@
 
 輸入任何文字即可開始使用
 
-![alt tag](https://i.imgur.com/9nzQ4et.png?3)
+![alt tag](https://i.imgur.com/Sx8tesI.png?1)
 
 
 首先請設定你的protal帳號密碼
 
 要點選才能設定
-
-![alt tag](https://i.imgur.com/RNT3xBw.png?2)
-
 設定完再輸入任意字後會出現可以用的服務
 
-![alt tag](https://i.imgur.com/hdHyzxf.png?4)
+![alt tag](https://i.imgur.com/yYXWszS.png?1)
+
+輸入我不玩了，刪除你的資料
+
+![alt tag](https://i.imgur.com/SRQvVFO.png?1)
+
+![alt tag](https://i.imgur.com/7Hlvw8q.png?1)
 
 ## 功能
 

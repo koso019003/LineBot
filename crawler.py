@@ -203,7 +203,7 @@ def total_work(user_name, pass_word, do_what, target=None, attend_work=None):
                 session.close()
                 return '請填入工作內容'
         else:
-            # print('這個工作之前已簽到到過了')
+            # print('這個工作之前已簽到過了')
             session.close()
             return '這個工作之前已簽到過了'
     else:

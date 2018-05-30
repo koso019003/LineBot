@@ -161,5 +161,26 @@ def kill_schedule(user_id, is_timing=0):
 
 
 # for handel work title out of limit
+# work_list like: ['1', '工作 title', '起 ~ 終 ', 'XX型-XX生', 'X薪 / XXXX元', 已簽到的時間, '新增簽到', '簽到記錄']
 def get_work_title(work_list):
-    return 'a'*30
+    time_str = '\n已簽到:{}小時'.format(work_list[5])
+
+    # print(work_list)
+    use_index = [1]
+    title = '{}. '.format(work_list[0]) + '\n'.join([work_list[i] for i in use_index])
+    # print(len(title), title)
+    k = len(use_index)
+    while len(title) > (40 - len(time_str)):
+        k -= 1
+        title = '{}. '.format(work_list[0]) + '\n'.join([work_list[i] for i in use_index[: k]])
+    if k == 0:
+        title = title + format(work_list[1].split('：')[1])
+
+    if len(title) > (40 - len(time_str)):
+        title = title + '工作 {}'.format(work_list[0])
+
+    title = title + time_str
+
+    print(len(title), title)
+
+    return title

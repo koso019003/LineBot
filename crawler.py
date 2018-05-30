@@ -195,7 +195,7 @@ def total_work(user_name, pass_word, do_what, target=None, attend_work=None):
     if id_no:
         if do_what == 'check_out':
             if attend_work is not None:
-                # print('這個工作之前已簽到到過了，自動進行簽退')
+                # print('這個工作之前已簽到過了，自動進行簽退')
                 do_check_out(attend_work)
                 session.close()
                 return '幫你簽退了喔~'
@@ -205,7 +205,7 @@ def total_work(user_name, pass_word, do_what, target=None, attend_work=None):
         else:
             # print('這個工作之前已簽到到過了')
             session.close()
-            return '這個工作之前已簽到到過了'
+            return '這個工作之前已簽到過了'
     else:
         if do_what == 'check_in':
             # print('這個工作之前還沒簽到，自動進行簽到')

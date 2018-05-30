@@ -158,3 +158,8 @@ def kill_schedule(user_id, is_timing=0):
             # print('kill', i)
             worksheet.delete_row(i + 2)
     return '成功'
+
+
+# for handel work title out of limit
+def get_work_title(work_list):
+    return 'a'*30

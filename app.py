@@ -20,7 +20,6 @@ requests.packages.urllib3.disable_warnings()
 
 app = Flask(__name__)
 
-
 line_bot_api = LineBotApi(Channel_Access_Token)
 parser = WebhookParser(Channel_Secret)
 
@@ -59,13 +58,13 @@ def callback():
 
 
 def handle_text_message(event):
-    # print(event)
+    print(event)
     user_id = event.source.sender_id
-    # print(user_id)
+    print(user_id)
 
     user_cell = find_user_data(user_id)
     user_row = user_cell.row
-    # print(user_row)
+    print(user_row)
 
     my_user = User()
 
@@ -137,7 +136,6 @@ def handle_text_message(event):
         return 0
 
     if user_message == '我不玩了':
-
         # 刪除表單內容
         delete_user(user_id)
 
@@ -156,24 +154,25 @@ def handle_text_message(event):
         columns_work = []
         # print(work_list)
         for i in work_list:
-            a_text = '{}. '.format(i[0]) + i[1]
+            a_text = get_work_title(i)
             # print(a_text)
             columns_work.append(
                 CarouselColumn(
-                    # thumbnail_image_url='https://example.com/item1.jpg',
+                    thumbnail_image_url='https://i.imgur.com/7LFRqK9.jpg',
+                    imageBackgroundColor='#CCDDFF',
                     text=a_text,
                     actions=[
                         PostbackTemplateAction(
                             label='簽到',
-                            data='work_{}_signIn_{}'.format(i[0], user_row)
+                            data='work_{}_signIn'.format(i[0])
                         ),
                         PostbackTemplateAction(
                             label='簽退',
-                            data='work_{}_signOut_{}'.format(i[0], user_row)
+                            data='work_{}_signOut'.format(i[0])
                         ),
                         PostbackTemplateAction(
                             label='設定工作內容',
-                            data='setWork_{}_{}'.format(i[0], user_row)
+                            data='setWork_{}'.format(i[0])
                         )
                     ])
             )
@@ -193,26 +192,27 @@ def handle_text_message(event):
         columns_work = []
         # print(work_list)
         for i in work_list:
-            a_text = '{}. '.format(i[0]) + i[1]
+            a_text = get_work_title(i)
             # print(a_text)
             columns_work.append(
                 CarouselColumn(
-                    # thumbnail_image_url='https://example.com/item1.jpg',
+                    thumbnail_image_url='https://i.imgur.com/7LFRqK9.jpg',
+                    imageBackgroundColor='#CCDDFF',
                     text=a_text,
                     actions=[
                         DatetimePickerTemplateAction(
                             label='預約簽到',
-                            data='work_{}_schedSignIn_{}'.format(i[0], user_row),
+                            data='work_{}_schedSignIn'.format(i[0]),
                             mode='datetime'
                         ),
                         DatetimePickerTemplateAction(
                             label='預約簽退',
-                            data='work_{}_schedSignOut_{}'.format(i[0], user_row),
+                            data='work_{}_schedSignOut'.format(i[0]),
                             mode='datetime'
                         ),
                         PostbackTemplateAction(
                             label='取消所有預約',
-                            data='work_{}_killSched_{}'.format(i[0], user_row),
+                            data='work_{}_killSched'.format(i[0]),
                         ),
                     ])
             )
@@ -235,26 +235,27 @@ def handle_text_message(event):
         columns_work = []
         # print(work_list)
         for i in work_list:
-            a_text = '{}. '.format(i[0]) + i[1]
+            a_text = get_work_title(i)
             # print(a_text)
             columns_work.append(
                 CarouselColumn(
-                    # thumbnail_image_url='https://example.com/item1.jpg',
+                    thumbnail_image_url='https://i.imgur.com/7LFRqK9.jpg',
+                    imageBackgroundColor='#CCDDFF',
                     text=a_text,
                     actions=[
                         DatetimePickerTemplateAction(
                             label='定時簽到',
-                            data='work_{}_timingSignIn_{}'.format(i[0], user_row),
+                            data='work_{}_timingSignIn'.format(i[0]),
                             mode='datetime'
                         ),
                         DatetimePickerTemplateAction(
                             label='定時簽退',
-                            data='work_{}_timingSignOut_{}'.format(i[0], user_row),
+                            data='work_{}_timingSignOut'.format(i[0]),
                             mode='datetime'
                         ),
                         PostbackTemplateAction(
                             label='取消所有定時任務',
-                            data='work_{}_killTiming_{}'.format(i[0], user_row),
+                            data='work_{}_killTiming'.format(i[0]),
                         )
                     ])
             )
@@ -273,14 +274,15 @@ def handle_text_message(event):
         CarouselColumn(
             title='帳號設定',
             text='先設定過帳號才能用喔!',
+            thumbnail_image_url='https://i.imgur.com/ruMYKVx.png',
             actions=[
                 PostbackTemplateAction(
                     label='設定帳號',
-                    data='setID_{}'.format(user_row)
+                    data='setID'
                 ),
                 PostbackTemplateAction(
                     label='設定密碼',
-                    data='setPassword_{}'.format(user_row)
+                    data='setPassword'
                 ),
                 MessageTemplateAction(
                     label='確認帳密',
@@ -288,12 +290,12 @@ def handle_text_message(event):
                 )])]
 
     if total_work(my_user.idd, my_user.password, 'check_user_exist'):
-
         column_list.insert(
             0,
             CarouselColumn(
                 title='登入成功',
                 text='請從以下選擇服務',
+                thumbnail_image_url='https://i.imgur.com/ZHHYEx5.jpg',
                 actions=[
                     MessageTemplateAction(
                         label='立即簽到簽退',
@@ -323,24 +325,25 @@ def handle_text_message(event):
 
 def handle_postback(event):
     user_id = event.source.sender_id
+
+    user_cell = find_user_data(user_id)
+    user_row = user_cell.row
+
     post_data = event.postback.data
-    # print(post_data)
-    if post_data.split('_')[0] == 'setID':
-        user_row = int(post_data.split('_')[1])
+    print(post_data)
+    if post_data == 'setID':
         update_sheet('3', (user_row, 1))
 
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text='請輸入你的學號'))
         return 0
-    if post_data.split('_')[0] == 'setPassword':
-        user_row = int(post_data.split('_')[1])
+    if post_data == 'setPassword':
         update_sheet('4', (user_row, 1))
 
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text='請輸入你的portal密碼'))
         return 0
     if post_data.split('_')[0] == 'setWork':
-        user_row = int(post_data.split('_')[2])
         target = int(post_data.split('_')[1])
         update_sheet(target + 4, (user_row, 1))
 
@@ -349,7 +352,6 @@ def handle_postback(event):
         return 0
 
     if post_data.split('_')[0] == 'work':
-        user_row = int(post_data.split('_')[3])
         target = int(post_data.split('_')[1])
 
         idd, pas, attend_work = get_data([(user_row, sheet_class.index('學號')),
@@ -435,8 +437,8 @@ def handle_postback(event):
 
 
 def handle_sticker_message(event):
-    # print("package_id:", event.message.package_id)
-    # print("sticker_id:", event.message.sticker_id)
+    print("package_id:", event.message.package_id)
+    print("sticker_id:", event.message.sticker_id)
     # ref. https://developers.line.me/media/messaging-api/sticker_list.pdf
     sticker_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 21, 100, 101, 102, 103, 104, 105, 106,
                    107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,

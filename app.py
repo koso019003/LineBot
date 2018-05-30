@@ -82,7 +82,7 @@ def handle_text_message(event):
         if my_user.state == 3:
             my_user.idd = user_message
             update_sheet(my_user.idd, loc=(user_row, my_user.state))
-            content = '你的帳號為:{}'.format(my_user.idd)
+            content = '你的帳號為:{}\n請接著輸入密碼'.format(my_user.idd)
 
         # 輸入密碼
         elif my_user.state == 4:
@@ -129,7 +129,11 @@ def handle_text_message(event):
         else:
             content = '系統發生錯誤'
 
-        update_sheet('0', loc=(user_row, 1))
+        # 如果是設定帳號，那接下來的輸入會是密碼
+        if my_user.state == 3:
+            update_sheet('4', loc=(user_row, 1))
+        else:
+            update_sheet('0', loc=(user_row, 1))
 
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text=content))
@@ -141,7 +145,7 @@ def handle_text_message(event):
 
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text='好吧'))
+            TextSendMessage(text='好吧，幫你把資料刪掉囉~'))
         return 0
 
     if user_message == '確認帳密':
@@ -280,13 +284,13 @@ def handle_text_message(event):
                     label='設定帳號',
                     data='setID'
                 ),
-                PostbackTemplateAction(
-                    label='設定密碼',
-                    data='setPassword'
-                ),
                 MessageTemplateAction(
                     label='確認帳密',
                     text='確認帳密'
+                ),
+                MessageTemplateAction(
+                    label='不玩了',
+                    text='我不玩了'
                 )])]
 
     if total_work(my_user.idd, my_user.password, 'check_user_exist'):

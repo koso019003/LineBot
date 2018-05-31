@@ -2,15 +2,13 @@
 
 請注意! 這必須提供你的portal帳號及密碼才可以使用
 
-## 執行畫面
-
-請先加入好友
-
 我的 QRCODE
 
 ![alt tag](https://i.imgur.com/qCbbF2R.png)
 
 我的ID：@cpq0643z
+
+## 執行畫面
 
 輸入任何文字即可開始使用
 

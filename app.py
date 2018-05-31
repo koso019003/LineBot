@@ -155,79 +155,84 @@ def handle_text_message(event):
 
     if user_message == '立即簽到簽退':
         work_list = total_work(my_user.idd, my_user.password, 'get_work_list')
-        columns_work = []
-        # print(work_list)
-        for i in work_list:
-            a_text = get_work_title(i)
-            # print(a_text)
-            columns_work.append(
-                CarouselColumn(
-                    thumbnail_image_url='https://i.imgur.com/7LFRqK9.jpg',
-                    imageBackgroundColor='#CCDDFF',
-                    text=a_text,
-                    actions=[
-                        PostbackTemplateAction(
-                            label='簽到',
-                            data='work_{}_signIn'.format(i[0])
-                        ),
-                        PostbackTemplateAction(
-                            label='簽退',
-                            data='work_{}_signOut'.format(i[0])
-                        ),
-                        PostbackTemplateAction(
-                            label='設定工作內容',
-                            data='setWork_{}'.format(i[0])
-                        )
-                    ])
-            )
+        if isinstance(work_list, list):
+            columns_work = []
+            # print(work_list)
+            for i in work_list:
+                a_text = get_work_title(i)
+                # print(a_text)
+                columns_work.append(
+                    CarouselColumn(
+                        thumbnail_image_url='https://i.imgur.com/7LFRqK9.jpg',
+                        imageBackgroundColor='#CCDDFF',
+                        text=a_text,
+                        actions=[
+                            PostbackTemplateAction(
+                                label='簽到',
+                                data='work_{}_signIn'.format(i[0])
+                            ),
+                            PostbackTemplateAction(
+                                label='簽退',
+                                data='work_{}_signOut'.format(i[0])
+                            ),
+                            PostbackTemplateAction(
+                                label='設定工作內容',
+                                data='setWork_{}'.format(i[0])
+                            )
+                        ]))
 
-        carousel_template_message = TemplateSendMessage(
-            alt_text='Carousel template',
-            template=CarouselTemplate(
-                columns=columns_work
+            carousel_template_message = TemplateSendMessage(
+                alt_text='Carousel template',
+                template=CarouselTemplate(
+                    columns=columns_work
+                )
             )
-        )
-        line_bot_api.reply_message(event.reply_token, carousel_template_message)
+            line_bot_api.reply_message(event.reply_token, carousel_template_message)
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=work_list))
 
         return 0
 
     if user_message == '預約簽到簽退':
         work_list = total_work(my_user.idd, my_user.password, 'get_work_list')
-        columns_work = []
-        # print(work_list)
-        for i in work_list:
-            a_text = get_work_title(i)
-            # print(a_text)
-            columns_work.append(
-                CarouselColumn(
-                    thumbnail_image_url='https://i.imgur.com/7LFRqK9.jpg',
-                    imageBackgroundColor='#CCDDFF',
-                    text=a_text,
-                    actions=[
-                        DatetimePickerTemplateAction(
-                            label='預約簽到',
-                            data='work_{}_schedSignIn'.format(i[0]),
-                            mode='datetime'
-                        ),
-                        DatetimePickerTemplateAction(
-                            label='預約簽退',
-                            data='work_{}_schedSignOut'.format(i[0]),
-                            mode='datetime'
-                        ),
-                        PostbackTemplateAction(
-                            label='取消所有預約',
-                            data='work_{}_killSched'.format(i[0]),
-                        ),
-                    ])
-            )
+        if isinstance(work_list, list):
+            columns_work = []
+            # print(work_list)
+            for i in work_list:
+                a_text = get_work_title(i)
+                # print(a_text)
+                columns_work.append(
+                    CarouselColumn(
+                        thumbnail_image_url='https://i.imgur.com/7LFRqK9.jpg',
+                        imageBackgroundColor='#CCDDFF',
+                        text=a_text,
+                        actions=[
+                            DatetimePickerTemplateAction(
+                                label='預約簽到',
+                                data='work_{}_schedSignIn'.format(i[0]),
+                                mode='datetime'
+                            ),
+                            DatetimePickerTemplateAction(
+                                label='預約簽退',
+                                data='work_{}_schedSignOut'.format(i[0]),
+                                mode='datetime'
+                            ),
+                            PostbackTemplateAction(
+                                label='取消所有預約',
+                                data='work_{}_killSched'.format(i[0]),
+                            ),
+                        ])
+                )
 
-        carousel_template_message = TemplateSendMessage(
-            alt_text='Carousel template',
-            template=CarouselTemplate(
-                columns=columns_work
+            carousel_template_message = TemplateSendMessage(
+                alt_text='Carousel template',
+                template=CarouselTemplate(
+                    columns=columns_work
+                )
             )
-        )
-        line_bot_api.reply_message(event.reply_token, carousel_template_message)
+            line_bot_api.reply_message(event.reply_token, carousel_template_message)
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=work_list))
 
         return 0
 
@@ -236,41 +241,43 @@ def handle_text_message(event):
             text='注意喔! 這個任務是每周同一時間進行，這裡設定的會是開始時間'))
 
         work_list = total_work(my_user.idd, my_user.password, 'get_work_list')
-        columns_work = []
-        # print(work_list)
-        for i in work_list:
-            a_text = get_work_title(i)
-            # print(a_text)
-            columns_work.append(
-                CarouselColumn(
-                    thumbnail_image_url='https://i.imgur.com/7LFRqK9.jpg',
-                    imageBackgroundColor='#CCDDFF',
-                    text=a_text,
-                    actions=[
-                        DatetimePickerTemplateAction(
-                            label='定時簽到',
-                            data='work_{}_timingSignIn'.format(i[0]),
-                            mode='datetime'
-                        ),
-                        DatetimePickerTemplateAction(
-                            label='定時簽退',
-                            data='work_{}_timingSignOut'.format(i[0]),
-                            mode='datetime'
-                        ),
-                        PostbackTemplateAction(
-                            label='取消所有定時任務',
-                            data='work_{}_killTiming'.format(i[0]),
-                        )
-                    ])
-            )
+        if isinstance(work_list, list):
 
-        carousel_template_message = TemplateSendMessage(
-            alt_text='Carousel template',
-            template=CarouselTemplate(
-                columns=columns_work
+            columns_work = []
+            # print(work_list)
+            for i in work_list:
+                a_text = get_work_title(i)
+                # print(a_text)
+                columns_work.append(
+                    CarouselColumn(
+                        thumbnail_image_url='https://i.imgur.com/7LFRqK9.jpg',
+                        imageBackgroundColor='#CCDDFF',
+                        text=a_text,
+                        actions=[
+                            DatetimePickerTemplateAction(
+                                label='定時簽到',
+                                data='work_{}_timingSignIn'.format(i[0]),
+                                mode='datetime'
+                            ),
+                            DatetimePickerTemplateAction(
+                                label='定時簽退',
+                                data='work_{}_timingSignOut'.format(i[0]),
+                                mode='datetime'
+                            ),
+                            PostbackTemplateAction(
+                                label='取消所有定時任務',
+                                data='work_{}_killTiming'.format(i[0]),
+                            )
+                        ]))
+            carousel_template_message = TemplateSendMessage(
+                alt_text='Carousel template',
+                template=CarouselTemplate(
+                    columns=columns_work
+                )
             )
-        )
-        line_bot_api.reply_message(event.reply_token, carousel_template_message)
+            line_bot_api.reply_message(event.reply_token, carousel_template_message)
+        else:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=work_list))
 
         return 0
 
@@ -281,7 +288,7 @@ def handle_text_message(event):
             thumbnail_image_url='https://i.imgur.com/ruMYKVx.png',
             actions=[
                 PostbackTemplateAction(
-                    label='設定帳號',
+                    label='設定帳密',
                     data='setID'
                 ),
                 MessageTemplateAction(
@@ -340,12 +347,6 @@ def handle_postback(event):
 
         line_bot_api.reply_message(
             event.reply_token, TextSendMessage(text='請輸入你的學號'))
-        return 0
-    if post_data == 'setPassword':
-        update_sheet('4', (user_row, 1))
-
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text='請輸入你的portal密碼'))
         return 0
     if post_data.split('_')[0] == 'setWork':
         target = int(post_data.split('_')[1])

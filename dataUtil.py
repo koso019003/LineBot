@@ -207,8 +207,8 @@ def store_log(logs):
             worksheet.update_cell(row=index, col=1, value=data)
         except Exception as e:
             print('store error', e)
-            worksheet.update_cell(row=1, col=1, value=str(index + 1))
             worksheet.append_row((logs,))
+            worksheet.update_cell(row=1, col=1, value=str(worksheet.row_count))
     except Exception as e:
         print('get index error', e)
     return 'success'

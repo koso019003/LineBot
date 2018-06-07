@@ -184,3 +184,31 @@ def get_work_title(work_list):
     print(len(title), title)
 
     return title
+
+
+def store_log(logs):
+    try:
+        scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+        key = Sac.from_json_keyfile_name(GDriveJSON, scope)
+        gc = gspread.authorize(key)
+        worksheet = gc.open(GSpreadSheet).get_worksheet(2)
+    except Exception as ex:
+        print('無法連線Google試算表', ex)
+        return '無法連線Google試算表'
+
+    try:
+        index = int(worksheet.cell(row=1, col=1).value)
+        try:
+            data = worksheet.cell(row=index, col=1).value
+            if data:
+                data = data + ',' + logs
+            else:
+                data = logs
+            worksheet.update_cell(row=index, col=1, value=data)
+        except Exception as e:
+            print('store error', e)
+            worksheet.update_cell(row=1, col=1, value=str(index + 1))
+            worksheet.append_row((logs,))
+    except Exception as e:
+        print('get index error', e)
+    return 'success'

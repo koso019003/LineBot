@@ -38,6 +38,7 @@ def callback():
 
         # if event is MessageEvent and message is TextMessage, then echo text
         for event in events:
+            save_logs(event)
             if not isinstance(event, MessageEvent):
                 if isinstance(event, PostbackEvent):
                     handle_postback(event)
@@ -459,6 +460,13 @@ def handle_sticker_message(event):
         event.reply_token,
         sticker_message)
 
+
+def save_logs(event):
+    event_dict = event.as_json_dict()
+    now = datetime.utcnow()
+    event_dict['now'] = now.strftime('%Y-%m-%d-%H-%M')
+
+    store_log(json.dumps(event_dict, sort_keys=True))
 
 if __name__ == '__main__':
     app.run()
